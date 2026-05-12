@@ -104,6 +104,8 @@ Format: `- [Page Title](relative/path.md) — one-line summary`
 `log.md` is append-only. Never edit or delete existing entries.
 Every wiki write gets a log entry.
 
+**Write immediately, not at session end.** The moment a decision is made, a preference stated, a pitfall found, or a task changes — write the log entry then. Do not accumulate updates and batch them later. Batching leads to missed entries when context runs out or sessions end unexpectedly.
+
 **Format:**
 
 ```
