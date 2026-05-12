@@ -1,0 +1,30 @@
+{
+  "SessionStart": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "touch \"/tmp/.cc-wiki-$(pwd | cksum | awk '{print $1}')\""
+        }
+      ]
+    },
+    {
+      "hooks": [
+        {
+          "type": "prompt",
+          "prompt": "A new session has started. This project uses a wiki at ./wiki/ as its living context layer. Read wiki/_snapshot.md first (one page, ~30-second bootstrap). Then read wiki/_active/now.md for current task and the last 10 entries of wiki/log.md. If you are unfamiliar with the wiki conventions, also read wiki/HOWTO.md. Drill into other pages only as needed — use wiki/index.md as your map.\n\nGap check: run `grep \"^## \\[\" wiki/log.md | tail -3` to see the last 3 log entries. If the most recent entry is not from today and `git log --oneline -3` shows recent commits, write a catch-up log entry for any unlogged decisions or changes before proceeding."
+        }
+      ]
+    }
+  ],
+  "Stop": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "M=\"/tmp/.cc-wiki-$(pwd | cksum | awk '{print $1}')\"; ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd); [ -f \"$M\" ] && [ \"$ROOT/wiki/log.md\" -ot \"$M\" ] && printf '\\n⚠️  wiki/log.md not updated this session — run /wiki-update if anything worth logging happened\\n'; exit 0"
+        }
+      ]
+    }
+  ]
+}

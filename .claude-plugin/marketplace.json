@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "llm-wiki",
+  "description": "llm-wiki plugin marketplace",
+  "owner": {
+    "name": "Alekra1",
+    "email": "alekseyuwww12@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "wiki",
+      "source": "./",
+      "description": "Persistent cross-session agent memory via markdown wiki",
+      "version": "1.0.0",
+      "author": { "name": "Alekra1" },
+      "homepage": "https://github.com/Alekra1/llm-wiki",
+      "repository": "https://github.com/Alekra1/llm-wiki",
+      "license": "MIT",
+      "keywords": ["wiki", "memory", "context", "agents", "claude-code"],
+      "category": "workflow",
+      "strict": false
+    }
+  ]
+}

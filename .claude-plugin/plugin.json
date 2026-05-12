@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "name": "wiki",
+  "description": "Persistent cross-session agent memory via markdown wiki. Adds /wiki-lint, /wiki-update, /wiki-snapshot commands and auto-bootstrap hooks.",
+  "author": "Alekra1",
+  "homepage": "https://github.com/Alekra1/llm-wiki",
+  "repository": "https://github.com/Alekra1/llm-wiki",
+  "license": "MIT",
+  "keywords": ["wiki", "memory", "context", "agents", "claude-code"],
+  "skills": ["./skills/"]
+}
