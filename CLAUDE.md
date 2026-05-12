@@ -6,7 +6,7 @@ This project uses an LLM wiki at `./wiki/` as its living context layer.
 `wiki/_active/now.md` and recent entries from `wiki/log.md`. If unfamiliar with the
 wiki conventions, also read `wiki/HOWTO.md`. Drill into other pages only as needed.
 
-**While working:** update the wiki immediately when anything significant happens — do not batch updates for later. Triggers: a decision is made, a preference is stated, a pitfall is found, a task changes, a discovery occurs. Write the `wiki/log.md` entry at the moment it happens, not at session end. Use supersession, not deletion, for contradictions.
+**While working:** update the wiki immediately when anything significant happens — do not batch updates for later. Triggers: a decision is made, a preference is stated, a pitfall is found, a task changes, a discovery occurs. Write the `wiki/log.md` entry at the moment it happens, not at session end. After every log entry, check whether `wiki/_snapshot.md` next steps or critical context are now stale — update it immediately if so. Use supersession, not deletion, for contradictions.
 
 **On session end:** rewrite `wiki/_snapshot.md` to reflect current state if anything changed. Run `/wiki-lint` only when the user asks for it.
 

@@ -10,7 +10,9 @@ other pages.
 **While working:** update the wiki immediately when anything significant happens — do not
 batch updates for later. Triggers: a decision is made, a preference is stated, a pitfall
 is found, a task changes. Write the `wiki/log.md` entry at the moment it happens, not at
-session end. Use supersession, not deletion, for contradictions.
+session end. After every log entry, check whether `wiki/_snapshot.md` next steps or
+critical context are now stale — update it immediately if so. Use supersession, not
+deletion, for contradictions.
 
 **On session end:** rewrite `wiki/_snapshot.md` to reflect current state if anything
 changed this session. Run the lint checklist only when the user asks for it.

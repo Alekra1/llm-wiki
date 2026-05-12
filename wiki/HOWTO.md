@@ -39,7 +39,7 @@ recur or the user explicitly elevates them.
 | Something breaks and the fix is understood | `pitfalls/<area>.md` |
 | Architecture insight that took effort to derive | `architecture/` |
 | Current task / in-flight state changes | `_active/now.md` |
-| Any of the above | also append to `log.md`; update `index.md` if new page |
+| Any of the above | also append to `log.md`; update `index.md` if new page; check if `_snapshot.md` next steps or critical context are now stale — update immediately if so |
 
 **preferences/ vs decisions/**: use `preferences/` for *how the agent should behave* (tone, verbosity, tool choices). Use `decisions/` for *what the project should do* (architecture, library choices, data model). When a toolchain choice affects both (e.g. "use pnpm"), write a `decisions/` entry as the primary source; only add a `preferences/` entry if it also changes agent behavior (e.g. always use pnpm in commands).
 
@@ -77,9 +77,33 @@ Every wiki page uses lightweight YAML frontmatter:
 ```yaml
 ---
 type: preference | decision | workflow | pitfall | architecture | active | snapshot
+date: YYYY-MM-DD          # date this page was first created
+status: active | superseded   # decisions only — omit for other types
+#        open  | resolved     # pitfalls only  — omit for other types
 supersedes: <optional: path to prior page if this replaces another entirely>
 ---
 ```
+
+`date` and `status` enable [Dataview](https://github.com/blacksmithgu/obsidian-dataview) queries
+in Obsidian (e.g. all open pitfalls, all decisions from last month). Always include them on
+`decisions/` and `pitfalls/` pages. `status` defaults: decisions start `active`, pitfalls start `open`.
+
+---
+
+## Cross-linking
+
+When a decision and a pitfall are causally related, link them in both directions.
+
+**Required:**
+- `decisions/` page — add a line: `Avoids: [pitfalls/foo](../pitfalls/foo.md)` for each pitfall the decision prevents.
+- `pitfalls/` page — add a line: `Addressed by: [decisions/bar](../decisions/bar.md)` if a decision resolves it.
+- `_active/now.md` — link relevant decisions/pitfalls inline in "Context for next session".
+
+Use standard relative markdown links `[label](../path/file.md)` — they render everywhere and
+Obsidian's graph view picks them up.
+
+**Why**: without explicit cross-links the graph view is a disconnected scatter of nodes. With them
+it becomes a causal map: *what went wrong → what we decided → what to watch out for*.
 
 ---
 
@@ -194,3 +218,22 @@ If multiple agents write to the wiki:
 - When a blocker in `_active/now.md` resolves into a settled decision, remove it from the blockers list and create the corresponding `decisions/` page.
 - When unsure whether to write: if it won't matter in a month, skip it.
 - A page with many stacked supersessions is a candidate for a clean rewrite — propose it during lint.
+
+---
+
+## Using as an Obsidian vault
+
+Open `wiki/` directly as an Obsidian vault. With cross-links and frontmatter in place:
+
+- **Graph view** — reveals the causal map: decisions ↔ pitfalls ↔ active work. Useful for
+  onboarding ("why does this exist?") and post-mortems ("what was connected to this failure?").
+- **Dataview plugin** — live-query the wiki without reading files. Examples:
+  ```dataview
+  TABLE date, status FROM "pitfalls" WHERE status = "open" SORT date DESC
+  ```
+  ```dataview
+  TABLE date FROM "decisions" WHERE status = "active" SORT date DESC
+  ```
+- **Backlinks panel** — when reading any decision, see every page that references it.
+
+No special Obsidian setup required beyond installing the Dataview community plugin for queries.

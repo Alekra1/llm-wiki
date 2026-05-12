@@ -11,9 +11,13 @@ File: `decisions/auth-strategy.md`
 
     ---
     type: decision
+    date: 2026-04-15
+    status: active
     ---
 
     # Auth strategy
+
+    Avoids: [pitfalls/auth](../pitfalls/auth.md)
 
     - 2026-04-15 — chose JWT (anticipated microservices split; stateless tokens fit that model)
     - 2026-05-11 [SUPERSEDES above] — reverted to sessions + Redis. Reason: microservices split
@@ -65,12 +69,15 @@ File: `pitfalls/build.md`
 
     ---
     type: pitfall
-    last_confirmed: 2026-05-11
+    date: 2026-05-11
+    status: open
     ---
 
     # Build failures
 
     ## Schema not migrated before build
+
+    Addressed by: [decisions/deploy-checklist](../decisions/deploy-checklist.md)
 
     Symptom: build fails with "column X does not exist"
     Fix: `pnpm db:migrate` then retry build
