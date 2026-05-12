@@ -1,5 +1,5 @@
 {
-  "name": "llm-wiki",
+  "name": "@alekra1/llm-wiki",
   "version": "1.0.0",
   "description": "Markdown wiki template for LLM agent persistent memory. Gives agents cross-session, cross-provider memory.",
   "bin": {

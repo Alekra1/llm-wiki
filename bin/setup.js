@@ -86,3 +86,5 @@ console.log('');
 console.log(`${Y}Tip:${R} install the CC plugin for slash commands (/wiki-lint, /wiki-update, /wiki-snapshot):`);
 console.log('  /plugin marketplace add Alekra1/llm-wiki');
 console.log('  /plugin install wiki@llm-wiki');
+console.log('');
+console.log(`Re-run anytime: npx @alekra1/llm-wiki`);

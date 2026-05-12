@@ -5,7 +5,7 @@ A markdown wiki template that gives LLM agents persistent, cross-session memory.
 ## Install
 
 ```bash
-npx llm-wiki
+npx @alekra1/llm-wiki
 ```
 
 This copies `wiki/` into your project, creates or appends to `CLAUDE.md`, and adds provider files (`AGENTS.md`, `GEMINI.md`, `.cursorrules`) if they don't exist.
