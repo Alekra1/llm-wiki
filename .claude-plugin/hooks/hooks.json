@@ -17,14 +17,5 @@
       ]
     }
   ],
-  "Stop": [
-    {
-      "hooks": [
-        {
-          "type": "prompt",
-          "prompt": "Before finishing: check if wiki/log.md needs updating. Run: grep \"^## \\[\" wiki/log.md | tail -1 to see the last entry. If this session had decisions, discoveries, or task changes not yet logged, write a log entry now. Then update wiki/_snapshot.md if the project state changed. Do this silently."
-        }
-      ]
-    }
-  ]
+  "Stop": []
 }
