@@ -26,10 +26,21 @@ Read it freely; let the agent write it.
 
 ## How to adopt this in another project
 
-1. Copy this entire `wiki/` directory into your project's root.
-2. Copy the provider entry files from the repo root (`AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `GEMINI.md`) to your project's root.
-3. Clear the placeholder example content, keeping directory structure and frontmatter templates.
-4. Start a new session. The agent will read the entry file automatically and bootstrap from the wiki.
+Run this in your project root:
+
+```bash
+npx @alekra1/llm-wiki
+```
+
+This scaffolds `wiki/` and creates `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, and `.cursorrules`.
+Then install the Claude Code plugin for slash commands and session hooks:
+
+```
+/plugin marketplace add Alekra1/llm-wiki
+/plugin install wiki@llm-wiki
+```
+
+Fill in `wiki/_snapshot.md` with your project's current state and start a session.
 
 ---
 

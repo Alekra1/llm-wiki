@@ -31,9 +31,9 @@ That's it. Start a Claude Code session.
 
 On session start, the SessionStart hook fires automatically and the agent reads `wiki/_snapshot.md` — one page, ~300 tokens, ~30 seconds. It picks up exactly where the last session ended.
 
-As you work, the agent writes to the wiki: decisions in `wiki/decisions/`, preferences in `wiki/preferences/`, current task in `wiki/_active/`. Every change gets a line in `wiki/log.md`.
+As you work, the agent writes to the wiki immediately — decisions in `wiki/decisions/`, preferences in `wiki/preferences/`, current task in `wiki/_active/`. Every change gets a line in `wiki/log.md` the moment it happens, not batched at session end.
 
-At session end, a Stop hook checks whether `wiki/log.md` was updated. If not, it prints a reminder in the terminal. The next SessionStart automatically catches any gaps from the previous session.
+At session end, the agent rewrites `wiki/_snapshot.md` to reflect current state. A Stop hook prints a reminder in the terminal if the log hasn't been updated. The next SessionStart catches any gaps automatically.
 
 ---
 
@@ -81,7 +81,7 @@ Installed by the CC plugin.
 | `GEMINI.md` | Gemini |
 | `.cursorrules` | Cursor |
 
-Each file contains identical wiki instructions in the format that provider expects. The CC plugin (slash commands + hooks) is Claude Code only — other providers use the wiki via file reads without the plugin.
+Each file contains the same core wiki instructions in the format that provider expects. Session hooks (SessionStart, Stop) are Claude Code only — other providers bootstrap from their entry file and follow the same read/write discipline manually.
 
 ---
 
@@ -92,8 +92,6 @@ Each file contains identical wiki instructions in the format that provider expec
 - `wiki/` — skipped if it already exists
 - `CLAUDE.md` — wiki block appended if not already present, never overwritten
 - `AGENTS.md`, `GEMINI.md`, `.cursorrules` — created only if absent
-
-The CC plugin installs alongside your existing `.claude/settings.json` without touching it.
 
 ---
 

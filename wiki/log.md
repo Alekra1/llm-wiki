@@ -11,4 +11,4 @@ Grep recent: `grep "^## \[" wiki/log.md | tail -10`
 
 ## [YYYY-MM-DD HH:MM] init | wiki initialized
 
-Wiki structure created from llm-wiki template. Ready for project-specific content to be added as the project develops. Next session: read HOWTO.md and index.md to bootstrap.
+Wiki structure created from llm-wiki template. Ready for project-specific content to be added as the project develops. Next session: read wiki/_snapshot.md first, then _active/now.md and recent log entries.

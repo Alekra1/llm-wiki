@@ -17,11 +17,11 @@ You maintain it. The human reads it. Read this file first; follow its rules exac
 Read in this order on every new session:
 
 1. `wiki/_snapshot.md` — compressed current-state summary; read this first for fast bootstrap
-2. `wiki/index.md` — catalog of all pages; find what is relevant to the current work
-3. `wiki/_active/now.md` — current task, blockers, in-flight state
-4. Last 10 entries of `wiki/log.md` — what happened recently
+2. `wiki/_active/now.md` — current task, blockers, in-flight state
+3. Last 10 entries of `wiki/log.md` — what happened recently
 
-Drill into other pages only when relevant to the task at hand. The index is your map.
+Use `wiki/index.md` as your map to find other pages as needed. Read `wiki/HOWTO.md` only
+if you are unfamiliar with the wiki conventions.
 
 ---
 

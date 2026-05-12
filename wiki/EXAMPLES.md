@@ -11,7 +11,6 @@ File: `decisions/auth-strategy.md`
 
     ---
     type: decision
-    last_confirmed: 2026-05-11
     ---
 
     # Auth strategy
@@ -29,7 +28,6 @@ File: `preferences/tools.md`
 
     ---
     type: preference
-    last_confirmed: 2026-05-11
     ---
 
     # Tools preferences
@@ -46,7 +44,6 @@ File: `workflows/deploy.md`
 
     ---
     type: workflow
-    last_confirmed: 2026-05-11
     ---
 
     # Deploy workflow
@@ -115,7 +112,6 @@ File: `_active/now.md`
 
     ---
     type: active
-    last_confirmed: 2026-05-11
     ---
 
     # Current work
