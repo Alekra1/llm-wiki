@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "A new session has started. This project uses a wiki at ./wiki/ as its living context layer. Read wiki/_snapshot.md first (one page, ~30-second bootstrap). Then read wiki/_active/now.md for current task and the last 10 entries of wiki/log.md. If you are unfamiliar with the wiki conventions, also read wiki/HOWTO.md. Drill into other pages only as needed — use wiki/index.md as your map."
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Read(wiki/**)",
+      "Edit(wiki/**)",
+      "Write(wiki/**)",
+      "Bash(grep * wiki/**)",
+      "Bash(grep \"*\" wiki/**)",
+      "Bash(find wiki/**)",
+      "Bash(cat >> wiki/**)"
+    ]
+  }
+}
