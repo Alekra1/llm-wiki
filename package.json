@@ -1,0 +1,25 @@
+{
+  "name": "llm-wiki",
+  "version": "1.0.0",
+  "description": "Markdown wiki template for LLM agent persistent memory. Gives agents cross-session, cross-provider memory.",
+  "bin": {
+    "llm-wiki": "bin/setup.js"
+  },
+  "files": [
+    "bin/",
+    "wiki/",
+    "CLAUDE.md",
+    "AGENTS.md",
+    "GEMINI.md",
+    ".cursorrules"
+  ],
+  "keywords": ["llm", "claude", "agents", "wiki", "memory", "context", "claude-code"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alekra1/llm-wiki"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
