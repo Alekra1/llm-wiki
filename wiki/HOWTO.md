@@ -19,6 +19,7 @@ Read in this order on every new session:
 1. `wiki/_snapshot.md` — compressed current-state summary; read this first for fast bootstrap
 2. `wiki/_active/now.md` — current task, blockers, in-flight state
 3. Last 10 entries of `wiki/log.md` — what happened recently
+4. **Conditional**: `grep -c '^## \[.*CANDIDATE' wiki/_active/pending-log.md`. If 0, skip. If > 0, read pending-log.md, promote worthwhile entries into `log.md` with proper category, delete the candidates. The file usually has no candidates — don't read it unless the count says otherwise.
 
 Use `wiki/index.md` as your map to find other pages as needed. Read `wiki/HOWTO.md` only
 if you are unfamiliar with the wiki conventions.
@@ -206,6 +207,16 @@ If multiple agents write to the wiki:
 1. Apply the **read-before-write rule** strictly — read the file immediately before writing it.
 2. Include an agent identifier in log entries: `[agent-A] decision | ...`
 3. If you detect a conflict in a decisions/ file, apply supersession rather than overwriting.
+
+---
+
+## Scripts
+
+The wiki ships three helper scripts under `wiki/scripts/`:
+
+- `session-end-capture.sh` — wired as a SessionEnd hook. Drafts candidates into `_active/pending-log.md`. You do not call this directly.
+- `compress-log.sh` — archives old log entries into `wiki/log/archive/YYYY-MM.md` when `log.md` crosses a length threshold. Manual trigger: `wiki/scripts/compress-log.sh --dry-run` to preview, then run for real. Run when `log.md` exceeds ~500 lines.
+- `index.sh` and `search.sh` — build and query a SQLite FTS5 index over the wiki. Markdown stays the source of truth; `wiki/.index/` is gitignored and regenerable. Use `wiki/scripts/search.sh "query"` when grep is too literal and you need to find pages by meaning.
 
 ---
 

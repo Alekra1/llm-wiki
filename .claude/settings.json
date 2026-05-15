@@ -10,15 +10,26 @@
         ]
       },
       {
+        "matcher": "startup|clear",
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "A new session has started. This project uses a wiki at ./wiki/ as its living context layer. Read wiki/_snapshot.md first (one page, ~30-second bootstrap). Then read wiki/_active/now.md for current task and the last 10 entries of wiki/log.md. If you are unfamiliar with the wiki conventions, also read wiki/HOWTO.md. Drill into other pages only as needed — use wiki/index.md as your map.\n\nGap check: run `grep \"^## \\[\" wiki/log.md | tail -3` to see the last 3 log entries. If the most recent entry is not from today and `git log --oneline -3` shows recent commits, write a catch-up log entry for any unlogged decisions or changes before proceeding."
+            "prompt": "A new session has started. This project uses a wiki at ./wiki/ as its living context layer. Read wiki/_snapshot.md first (one page, ~30-second bootstrap). Then read wiki/_active/now.md for current task and the last 10 entries of wiki/log.md. If you are unfamiliar with the wiki conventions, also read wiki/HOWTO.md. Drill into other pages only as needed — use wiki/index.md as your map.\n\nGap check: run `grep \"^## \\[\" wiki/log.md | tail -3` to see the last 3 log entries. If the most recent entry is not from today and `git log --oneline -3` shows recent commits, write a catch-up log entry for any unlogged decisions or changes before proceeding.\n\nPending log check: run `grep -c '^## \\[.*CANDIDATE' wiki/_active/pending-log.md` — if the count is > 0, read pending-log.md, promote any worthwhile entries into log.md with proper category (decision / pitfall / preference / workflow / session-end), then delete the candidates from pending-log.md. Skip this step entirely if the count is 0."
           }
         ]
       }
     ],
-    "Stop": []
+    "Stop": [],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash wiki/scripts/session-end-capture.sh"
+          }
+        ]
+      }
+    ]
   },
   "permissions": {
     "allow": [
@@ -29,7 +40,9 @@
       "Bash(grep \"^*\" wiki/**)",
       "Bash(find wiki/**)",
       "Bash(cat >> wiki/**)",
-      "Bash(git log *)"
+      "Bash(git log *)",
+      "Bash(wiki/scripts/*)",
+      "Bash(bash wiki/scripts/*)"
     ]
   }
 }
