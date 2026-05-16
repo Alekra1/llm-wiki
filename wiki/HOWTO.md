@@ -19,10 +19,11 @@ Read in this order on every new session:
 1. `wiki/_snapshot.md` — compressed current-state summary; read this first for fast bootstrap
 2. `wiki/_active/now.md` — current task, blockers, in-flight state
 3. Last 10 entries of `wiki/log.md` — what happened recently
-4. **Conditional**: `grep -c '^## \[.*CANDIDATE' wiki/_active/pending-log.md`. If 0, skip. If > 0, read pending-log.md, promote worthwhile entries into `log.md` with proper category, delete the candidates. The file usually has no candidates — don't read it unless the count says otherwise.
 
 Use `wiki/index.md` as your map to find other pages as needed. Read `wiki/HOWTO.md` only
 if you are unfamiliar with the wiki conventions.
+
+`wiki/_active/pending-log.md` is **not** read at session start. It's a diagnostic file auto-populated by the SessionEnd hook as a safety net behind inline mid-session writes. Review it during `/wiki-lint`, not at bootstrap — see §Lint and §Scripts below.
 
 ---
 
@@ -178,6 +179,7 @@ When asked to lint the wiki, run this checklist in order:
 4. **Duplicates** — overlapping content across separate pages. Propose: merge into one.
 5. **Empty templates** — placeholder pages never filled in. Propose: fill or delete.
 6. **Stale active items** — items in `_active/` that appear resolved. Propose: remove or graduate to `decisions/` or `workflows/`.
+7. **Pending-log drafts** — `wiki/_active/pending-log.md` accumulates SessionEnd auto-captures. Promote any worthwhile candidates into `log.md` with proper category; delete the rest. Common case: empty (inline writes captured everything during the session).
 
 **Propose all changes. Apply only on user approval.**
 After lint: rewrite `_snapshot.md` to reflect current state, then append a `session-end` entry to `log.md`.
@@ -214,7 +216,7 @@ If multiple agents write to the wiki:
 
 The wiki ships three helper scripts under `wiki/scripts/`:
 
-- `session-end-capture.sh` — wired as a SessionEnd hook. Drafts candidates into `_active/pending-log.md`. You do not call this directly.
+- `session-end-capture.sh` — wired as a SessionEnd hook. Drafts candidates into `_active/pending-log.md` as a diagnostic safety net behind inline mid-session writes. You do not call this directly. The pending file is **not** read at session start — it's reviewed during `/wiki-lint`. Common case: empty, because inline discipline captured everything.
 - `compress-log.sh` — archives old log entries into `wiki/log/archive/YYYY-MM.md` when `log.md` crosses a length threshold. Manual trigger: `wiki/scripts/compress-log.sh --dry-run` to preview, then run for real. Run when `log.md` exceeds ~500 lines.
 - `index.sh` and `search.sh` — build and query a SQLite FTS5 index over the wiki. Markdown stays the source of truth; `wiki/.index/` is gitignored and regenerable. Use `wiki/scripts/search.sh "query"` when grep is too literal and you need to find pages by meaning.
 
